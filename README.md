@@ -1,2 +1,2 @@
 # Fun-Times
-Fun things and other challenges
+A collection of challenges from along the way
