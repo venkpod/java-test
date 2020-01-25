@@ -1,16 +1,9 @@
 package com.javatest.shop;
 
-import com.javatest.shop.exceptions.IncorrectInputException;
-import com.javatest.shop.model.Product;
-import com.javatest.shop.service.BillingService;
-import com.javatest.shop.service.ProductListingService;
-import com.javatest.shop.service.ShoppingCartService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.time.LocalDate;
 import java.util.Scanner;
 
 @SpringBootApplication
