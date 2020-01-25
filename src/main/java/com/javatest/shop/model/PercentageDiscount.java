@@ -25,5 +25,29 @@ public class PercentageDiscount extends Discount {
     }
 
     @Override
-    public void applyDiscount(Map<Product, Integer> cart) { }
+    public void applyDiscount(Map<Product, ProductPrice> cart) {
+        //get the Product
+        Optional<Map.Entry<Product, ProductPrice>> optionalProductProductPriceEntry = cart.entrySet()
+                .stream()
+                .filter(productProductPriceEntry ->
+                        productProductPriceEntry
+                                .getKey()
+                                .getProductName()
+                                .equalsIgnoreCase(this.getDiscountedProductName()))
+                .findFirst();
+
+        optionalProductProductPriceEntry.ifPresent(productProductPriceEntry -> {
+            Product discountProduct = productProductPriceEntry.getKey();
+            ProductPrice discountProductPrice = productProductPriceEntry.getValue();
+            BigDecimal totalPrice = discountProduct.getProductUnitPrice()
+                    .multiply(BigDecimal.valueOf(discountProductPrice.getQuantity()));
+            BigDecimal disCountedPrice = totalPrice
+                    .multiply(this.discountPercentage)
+                    .divide(BigDecimal.valueOf(100));
+
+            //set the price after discount
+
+            discountProductPrice.setTotalPrice(totalPrice.subtract(disCountedPrice));
+        });
+    }
 }

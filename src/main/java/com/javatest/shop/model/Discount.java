@@ -1,6 +1,8 @@
 package com.javatest.shop.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NonNull;
 
 import java.time.LocalDate;
 import java.util.Map;
@@ -15,5 +17,5 @@ public abstract class Discount {
     @NonNull
     private LocalDate endDate;
 
-    public abstract void applyDiscount(Map<Product, Integer> cart);
+    public abstract void applyDiscount(Map<Product, ProductPrice> cart);
 }

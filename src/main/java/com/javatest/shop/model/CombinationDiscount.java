@@ -7,7 +7,6 @@ import lombok.NonNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Map;
-import java.util.Optional;
 
 @Getter
 public class CombinationDiscount extends Discount {
@@ -33,5 +32,6 @@ public class CombinationDiscount extends Discount {
     }
 
     @Override
-    public void applyDiscount(Map<Product, Integer> cart) { }
+    public void applyDiscount(Map<Product, ProductPrice> cart) {
+    }
 }
