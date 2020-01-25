@@ -27,8 +27,8 @@ class InMemoryDiscountRepoTest {
         Discount expectedDiscount   =   PercentageDiscount
                 .builder()
                 .discountedProductName("Apple")
-                .startDate(LocalDate.now().minusDays(1))
-                .endDate(LocalDate.now().plusDays(6))
+                .startDate(LocalDate.now().plusDays(3))
+                .endDate(LocalDate.now().plusMonths(1))
                 .discountPercentage(BigDecimal.valueOf(10))
                 .build();
         Discount actualDiscount =   discountRepo.getDiscountByProductName("Apple").get();
