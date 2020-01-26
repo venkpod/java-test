@@ -30,8 +30,8 @@ public class ProductListingService {
                     stringBuilder
                             .append(idx).append(".").append(lstOfProducts.get(idx - 1).getProductName()).append("\n");
                 });
-        stringBuilder.append("x:Previous Menu\n");
-        stringBuilder.append("To add Enter corresponding Number :");
+        stringBuilder.append("x. Previous Menu\n");
+        stringBuilder.append("To add enter corresponding product number or x to go back to main menu :");
         return stringBuilder.toString();
     }
 

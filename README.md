@@ -2,17 +2,20 @@
 
 This is a simple exercise to allow you to demostrate your software engineering skillset. It's completly up to you how long you give yourself, stop when you're happy with the quality of your work, but we don't expect it to take too long.
 
-## Instructions
-  1. Please fork this repository and work on your fork.
-     _https://help.github.com/en/articles/fork-a-repo_
-  2. Commit changes frequently so that we can review your progression with you later.
-     _https://crealytics.com/blog/5-reasons-keeping-git-commits-small/_
-  3. You should use a recognised build tool, e.g. _gradle_, _maven_...
-  4. We are currently using [open JDK 8u181](https://cdn.azul.com/zulu/bin/zulu8.31.0.1-jdk8.0.181-win_x64.msi). But please use the JDK you think is most appropriate to demonstrate your skillset. 
-  5. We don't expect 100% code coverage, we expect well tested code.
-     _https://medium.com/@nicklee1/why-test-code-coverage-targets-are-a-bad-idea-1b9b8ef711ef_
-  6. Any other tools or libraries used must be freely available. Any third-party jars must be accessible via [maven central](https://mvnrepository.com/repos/central).
-  7. The specification is below.
+This exersice is implemented using Java(1.8.0_212), it adhere the SOLID principles and interactive using command line. The build tool used is Gradle and built on Spring boot(2.2.4) framework
+
+## Instructions to compile and run
+
+  To Compile the application run below command:
+  
+  **$ gradle clean build**
+  
+  Which on sucessfully built the jar is built in to build/lib directory.
+  
+  To Run the application :
+  
+  **$ java -jar build/libs/java-test-0.0.1-SNAPSHOT.jar com.javatest.shop.GroceriesShoppingApplication**
+  
   
 ## Specification
 
@@ -51,5 +54,54 @@ All outputs must print to the command line.
      - Expected total cost = 1.84;
    - Price a basket containing: 3 apples, 2 tins of soup and a loaf of bread, bought in 5 days time,
      - Expected total cost = 1.97.
+     
+  
  
+ ### Instructions to add product to shopping cart and checkout
  
+ When application is started the Main menu is disaplyed with options to add product (option 1), checkout (option 2) and exit (option x) the application as shown below:
+ 
+ ***
+ 
+ >------------ Welcome to Henry’s Grocery Shop ------------------
+
+ >Please Enter : 
+ >1. Add products to basket 
+ >2. Checkout and print total cost 
+ 
+ >x. EXIT
+ 
+ ***
+
+ When entered option 1 the second menu displays the available Products and can choose based on the product number listed or 'x' to return to main menu.
+ 
+ ***
+ >------------Add Products Menu-------------
+ 
+ >1. Apple
+ >2. Bread
+ >3. Milk
+ >4. Soup
+ 
+ >x. Previous Menu
+ 
+ >To add enter corresponding product number or x to go back to main menu :
+ ***
+ 
+ Once the product is selected it prompts for the qantity of the products which are measured in product units.
+ 
+ ***
+ >Please Enter the no of Apple singles:
+ ***
+ 
+ Once addition of all the products is done return to main menu by entering 'x' . On the main menu enter '2' to get the Total price, before displaying the total price it prompts for the billing days, which is required to tbe entered in days (for ex : for Today enter 0, Tomorrow 1 and so on)
+ 
+ ***
+ >Billing Days from Today (as number 0 for Today, 1 for Tommorrow ....) :
+ ***
+ 
+ Once the valid days are entered the Total price is displayed and application is terminated.
+ 
+ ***
+ >Total Price :
+ ***

@@ -52,6 +52,10 @@ public class GroceriesShoppingApplication implements CommandLineRunner {
                         addProductToBasketUI(scanner);
                         break;
                     case "2":
+                        if(shoppingCartService.getCart().isEmpty()){
+                            System.out.println("Shopping cart is empty, please add the products by selecting option 1\n\n");
+                            continue;
+                        }
                         System.out.println("Billing Days from Today (as number 0 for Today, 1 for Tommorrow ....) :");
                         int numOfDaysInt = 0;
                         while (true) {

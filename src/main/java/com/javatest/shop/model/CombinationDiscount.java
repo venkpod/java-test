@@ -66,6 +66,8 @@ public class CombinationDiscount extends Discount {
                     Product eligibleProduct = discountProductProductPriceEntry.getKey();
                     ProductPrice eligibleProductPrice = discountProductProductPriceEntry.getValue();
                     BigDecimal hundred = BigDecimal.valueOf(100);
+
+                    //get the minimum discount eligible count and calculate discount price
                     int eligibleDiscountCount = Math.min(combination, eligibleProductPrice.getQuantity());
                     BigDecimal discountPrice = eligibleProduct.getProductUnitPrice()
                             .multiply(this.discountPricePercentage)
