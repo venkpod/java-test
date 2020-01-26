@@ -70,4 +70,64 @@ class BillingServiceTest {
         BigDecimal totalPrice = billingService.getTotalPrice(shoppingCartService.getCart(), LocalDate.now());
         assertTrue(BigDecimal.valueOf(1.90).equals(totalPrice));
     }
+
+    @Test
+    public void getTotalPrice_WhenAdded3TinsAnd2Loafs_PurchasedToday_CombinationDiscountisApplied_ShouldReturnDiscountedPrice() {
+        Product soup = Product
+                .builder()
+                .productName("Soup")
+                .productUnit(Unit.SOUP)
+                .productUnitPrice(BigDecimal.valueOf(.65))
+                .build();
+        Product loafs = Product
+                .builder()
+                .productName("Bread")
+                .productUnit(Unit.BREAD)
+                .productUnitPrice(BigDecimal.valueOf(.80))
+                .build();
+        shoppingCartService.addProductToCart(soup, 3);
+        shoppingCartService.addProductToCart(loafs, 2);
+        BigDecimal totalPrice = billingService.getTotalPrice(shoppingCartService.getCart(), LocalDate.now());
+        assertTrue(BigDecimal.valueOf(3.15).equals(totalPrice));
+    }
+
+    @Test
+    public void getTotalPrice_WhenAdded3TinsAnd2Loafs_PurchasedAfter7Days_CombinationDiscountisNotApplied_ShouldReturnTotalPrice() {
+        Product soup = Product
+                .builder()
+                .productName("Soup")
+                .productUnit(Unit.SOUP)
+                .productUnitPrice(BigDecimal.valueOf(.65))
+                .build();
+        Product loafs = Product
+                .builder()
+                .productName("Bread")
+                .productUnit(Unit.BREAD)
+                .productUnitPrice(BigDecimal.valueOf(.80))
+                .build();
+        shoppingCartService.addProductToCart(soup, 3);
+        shoppingCartService.addProductToCart(loafs, 2);
+        BigDecimal totalPrice = billingService.getTotalPrice(shoppingCartService.getCart(), LocalDate.now().plusDays(7));
+        assertTrue(BigDecimal.valueOf(3.55).equals(totalPrice));
+    }
+
+    @Test
+    public void getTotalPrice_WhenAdded4TinsAnd1Loafs_PurchasedToday_CombinationDiscountisApplied_ShouldReturnDiscountedPrice() {
+        Product soup = Product
+                .builder()
+                .productName("Soup")
+                .productUnit(Unit.SOUP)
+                .productUnitPrice(BigDecimal.valueOf(.65))
+                .build();
+        Product loafs = Product
+                .builder()
+                .productName("Bread")
+                .productUnit(Unit.BREAD)
+                .productUnitPrice(BigDecimal.valueOf(.80))
+                .build();
+        shoppingCartService.addProductToCart(soup, 4);
+        shoppingCartService.addProductToCart(loafs, 1);
+        BigDecimal totalPrice = billingService.getTotalPrice(shoppingCartService.getCart(), LocalDate.now());
+        assertTrue(BigDecimal.valueOf(3.00).setScale(2).equals(totalPrice));
+    }
 }

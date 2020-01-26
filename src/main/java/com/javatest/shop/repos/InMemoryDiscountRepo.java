@@ -29,7 +29,7 @@ public class InMemoryDiscountRepo implements DiscountRepo {
                 .builder()
                 .discountedProductName("Apple")
                 .startDate(LocalDate.now().plusDays(3))
-                .endDate(LocalDate.now().plusMonths(1))
+                .endDate(getAppleDiscountEndDate(LocalDate.now()))
                 .discountPercentage(BigDecimal.valueOf(10))
                 .build();
         discounts.add(appleDiscount);
@@ -50,5 +50,13 @@ public class InMemoryDiscountRepo implements DiscountRepo {
         if(productName != null)
             return discounts.stream().filter(discount -> discount.getDiscountedProductName().equalsIgnoreCase(productName)).findFirst();
         return Optional.empty();
+    }
+
+    public LocalDate getAppleDiscountEndDate(LocalDate fromDate){
+        LocalDate endDateForAppleDiscount  = fromDate.plusMonths(1);
+        endDateForAppleDiscount = endDateForAppleDiscount.withDayOfMonth(
+                endDateForAppleDiscount.getMonth().length(endDateForAppleDiscount.isLeapYear()));
+
+        return endDateForAppleDiscount;
     }
 }

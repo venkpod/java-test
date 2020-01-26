@@ -2,6 +2,7 @@ package com.javatest.shop;
 
 import com.javatest.shop.exceptions.IncorrectInputException;
 import com.javatest.shop.model.Product;
+import com.javatest.shop.service.BillingService;
 import com.javatest.shop.service.ProductListingService;
 import com.javatest.shop.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 @SpringBootApplication
@@ -19,11 +21,16 @@ public class GroceriesShoppingApplication implements CommandLineRunner {
 
     private ShoppingCartService shoppingCartService;
 
+    private BillingService billingService;
+
+
     @Autowired
     public GroceriesShoppingApplication(ProductListingService productListingService,
-                                        ShoppingCartService shoppingCartService) {
+                                        ShoppingCartService shoppingCartService,
+                                        BillingService billingService) {
         this.productListingService = productListingService;
         this.shoppingCartService = shoppingCartService;
+        this.billingService = billingService;
     }
 
     public static void main(String[] args) {
@@ -45,8 +52,24 @@ public class GroceriesShoppingApplication implements CommandLineRunner {
                         addProductToBasketUI(scanner);
                         break;
                     case "2":
-                        System.out.println("chekout");
-                         return;
+                        System.out.println("Billing Days from Today (as number 0 for Today, 1 for Tommorrow ....) :");
+                        int numOfDaysInt = 0;
+                        while (true) {
+                            String numberOfDays = scanner.nextLine();
+                            try {
+                                numOfDaysInt = Integer.parseInt(numberOfDays);
+                            } catch (NumberFormatException nfe) {
+                                System.out.println("Invalid Entry, Please enter the days in numbers:");
+                                continue;
+                            }
+                            break;
+                        }
+                        System.out.println("Total Price : " + billingService.getTotalPrice(
+                                shoppingCartService.getCart(),
+                                LocalDate.now().plusDays(numOfDaysInt))
+                                .setScale(2).toPlainString()
+                        );
+                        return;
                     case "x":
                         return;
                     default:
@@ -61,23 +84,29 @@ public class GroceriesShoppingApplication implements CommandLineRunner {
             System.out.println(productListingService.listAllAvailableProducts());
             String option = scanner.nextLine();
             switch (option.toLowerCase()) {
-                case "x":
+                case "x": //to exit
                     return;
-                default:
+                default: //anything else
+                    //parse the input for the product
                     int input = 0;
                     try {
                         input = Integer.parseInt(option);
                         if (input < 1 || input > productListingService.numberOfProducts())
                             throw new IncorrectInputException(option);
 
-                    } catch (NumberFormatException|IncorrectInputException ex) {
+                    } catch (NumberFormatException | IncorrectInputException ex) {
+                        //if entered invalid entry
                         System.out.println("Invalid Entry, Please enter Valid entry from the given list");
                         continue;
                     }
-                    Product product = productListingService.validateInputAndReturnProduct(input);
-                    System.out.println("Please Enter the no of " + product.getProductName() + " " + product.getProductUnit().getUnit() + "s:");
 
+                    Product product = productListingService.validateInputAndReturnProduct(input);
+
+                    //prompting for the quantity of the product
+                    System.out.println("Please Enter the no of " + product.getProductName() + " " + product.getProductUnit().getUnit() + "s:");
+                    // parse the input if enter valid integer
                     int count = 0;
+                    //inner loop to get the correct quntity
                     while (true) {
                         String countString = scanner.nextLine();
                         try {
@@ -88,6 +117,7 @@ public class GroceriesShoppingApplication implements CommandLineRunner {
                         }
                         break;
                     }
+                    //add product to shopping cart
                     if (product != null) {
                         shoppingCartService.addProductToCart(product, count);
                     }
