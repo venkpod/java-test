@@ -29,8 +29,8 @@ public class ProductListingServiceTest {
                 "2.Bread\n" +
                 "3.Milk\n" +
                 "4.Soup\n" +
-                "x:Previous Menu\n"+
-                "To add Enter corresponding Number :";
+                "x. Previous Menu\n" +
+                "To add enter corresponding product number or x to go back to main menu :";
         assertEquals(expectedResult, service.listAllAvailableProducts());
     }
 

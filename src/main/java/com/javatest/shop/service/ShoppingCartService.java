@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ *  This service is reponsible for adding products to the shopping cart
+ */
 @Service
 public class ShoppingCartService {
 

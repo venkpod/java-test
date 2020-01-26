@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.IntStream;
 
+/**
+ * This Service is responsible for listing the available products.
+ */
 @Service
 public class ProductListingService {
 

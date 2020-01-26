@@ -13,6 +13,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.time.LocalDate;
 import java.util.Scanner;
 
+/**
+ * Main class to start the application which is interactive by taking the inputs from the command prompt
+ */
 @SpringBootApplication
 public class GroceriesShoppingApplication implements CommandLineRunner {
 
@@ -52,12 +55,15 @@ public class GroceriesShoppingApplication implements CommandLineRunner {
                         addProductToBasketUI(scanner);
                         break;
                     case "2":
+                        //check the cart if empty prompt the main menu
                         if(shoppingCartService.getCart().isEmpty()){
                             System.out.println("Shopping cart is empty, please add the products by selecting option 1\n\n");
                             continue;
                         }
+                        //else continue with the billing days
                         System.out.println("Billing Days from Today (as number 0 for Today, 1 for Tommorrow ....) :");
                         int numOfDaysInt = 0;
+                        //check the valid entry and prompts until the input is valid.
                         while (true) {
                             String numberOfDays = scanner.nextLine();
                             try {
@@ -68,6 +74,7 @@ public class GroceriesShoppingApplication implements CommandLineRunner {
                             }
                             break;
                         }
+                        //Display the total price
                         System.out.println("Total Price : " + billingService.getTotalPrice(
                                 shoppingCartService.getCart(),
                                 LocalDate.now().plusDays(numOfDaysInt))
@@ -110,7 +117,7 @@ public class GroceriesShoppingApplication implements CommandLineRunner {
                     System.out.println("Please Enter the no of " + product.getProductName() + " " + product.getProductUnit().getUnit() + "s:");
                     // parse the input if enter valid integer
                     int count = 0;
-                    //inner loop to get the correct quntity
+                    //inner loop to get the correct quantity
                     while (true) {
                         String countString = scanner.nextLine();
                         try {

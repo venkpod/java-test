@@ -12,6 +12,9 @@ import java.time.LocalDate;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * Billing service which is responsible for applying the Discount is available and calculate the total price for the products added to cart
+ */
 @Service
 public class BillingService {
 
